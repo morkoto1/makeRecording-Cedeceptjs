@@ -1,32 +1,60 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+# name: Node.js CI
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#     strategy:
+#       matrix:
+#         node-version: [16.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - uses: browser-actions/setup-chrome@latest
-      - run: chrome --version
-      - run: npm ci
-      - run: sudo apt-get install chromium-browser
-      - run: npx codeceptjs run --override --steps
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#           cache: "npm"
+#       - uses: browser-actions/setup-chrome@latest
+#       - run: chrome --version
+#       - run: npm ci
+#       - run: sudo apt-get install chromium-browser
+#       - run: npx codeceptjs run --override --steps
+name: puppeteer-chrome
+description: Run Test through Puppeteer, the headless chrome Node API
+author: tj-actions
+inputs:
+  token:
+    description: "GITHUB_TOKEN or a Repo scoped PAT"
+    required: true
+    default: ${{ github.token }}
+  node-version:
+    description: "Node version"
+    required: false
+    default: "14"
+  args:
+    description: "Command to run puppeteer"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: build
+      run: docker build --build-arg NODE_VERSION=${{ inputs.node-version }} -t puppetter:local-node${{ inputs.node-version }} .
+      shell: bash
+    - id: run
+      run: docker run --rm -v $(pwd):/github/workspace --workdir /github/workspace puppetter:local-node${{ inputs.node-version }} ${{ inputs.args }}
+      shell: bash
+branding:
+  icon: camera-off
+  color: white
