@@ -13,9 +13,15 @@ exports.config = {
   helpers: {
     Playwright: {
       url: "http://stunning-test-website.tech",
-      show: true,
+      show: false,
       browser: "chromium",
-      waitForNavigation: "networkidle0",
+      windowSize: "1920x1080",
+      restart: false,
+      keepBrowserState: true,
+      keepCookies: true,
+      waitForNavigation: "networkidle",
+      waitForTimeout: 60000,
+      waitForAction: 500, // Delay (ms) after click
     },
   },
   include: {
