@@ -11,12 +11,11 @@ exports.config = {
   tests: "./*_test.js",
   output: "./output",
   helpers: {
-    Puppeteer: {
+    Playwright: {
       url: "http://stunning-test-website.tech",
       show: true,
-      windowSize: "1200x900",
-      waitForTimeout: 60000,
-      waitForAction: 500,
+      browser: "chromium",
+      waitForNavigation: "networkidle0",
     },
   },
   include: {
