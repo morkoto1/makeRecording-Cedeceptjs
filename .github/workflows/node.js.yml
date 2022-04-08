@@ -14,4 +14,5 @@ jobs:
 
       - uses: microsoft/playwright-github-action@v1
       - name: run CodeceptJS tests
+        run: npm ci
         run: npx codeceptjs run
