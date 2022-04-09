@@ -44,4 +44,5 @@ Scenario("test something", ({ I }) => {
 
   // click affiliate link
   I.click("Affiliate with smartlook");
+  I.wait(3);
 });
