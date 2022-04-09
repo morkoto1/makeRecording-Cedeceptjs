@@ -34,7 +34,7 @@ Scenario("test something", ({ I }) => {
 
   // send message
   I.wait(3);
-  I.forceClick(".special");
+  I.forceClick(".close");
   I.wait(1);
 
   // open affiliate nav
