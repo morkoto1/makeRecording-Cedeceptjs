@@ -8,7 +8,7 @@ setHeadlessWhen(process.env.HEADLESS);
 setCommonPlugins();
 
 exports.config = {
-  tests: "./*_test.js",
+  tests: "./dailyRecording/*_test.js",
   output: "./output",
   helpers: {
     Playwright: {
@@ -26,6 +26,7 @@ exports.config = {
   },
   include: {
     I: "./steps_file.js",
+    webpage: "./pageObjects/stunningWebpage.js",
   },
   bootstrap: null,
   mocha: {},

@@ -1,10 +1,7 @@
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
   schedule:
-    - cron: "0 2 1-31 * *"
+    - cron: "0 0 1-31 * *"
 
 jobs:
   e2e-tests:
