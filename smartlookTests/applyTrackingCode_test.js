@@ -6,7 +6,7 @@ const TEST_EMAIL = "test976563365490@test.cz";
 const TEST_PASSWORD = "test976563365490";
 const TEST_PROJECT_NAME = "helo";
 
-Scenario("Create new account", () => {
+Scenario.skip("Create new account", () => {
   I.amOnPage(onboarding.SMARKLOOK_QA_APP);
 
   // Create new account
@@ -50,4 +50,4 @@ Scenario("Create new account", () => {
   I.wait(888);
 });
 
-Scenario("Get and apply tracking code", () => {});
+Scenario.skip("Get and apply tracking code", () => {});
