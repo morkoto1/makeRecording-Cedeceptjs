@@ -8,12 +8,12 @@ setHeadlessWhen(process.env.HEADLESS);
 setCommonPlugins();
 
 exports.config = {
-  tests: "./dailyRecording/*_test.js",
+  tests: "./*/*_test.js",
   output: "./output",
   helpers: {
     Playwright: {
       url: "http://stunning-test-website.tech",
-      show: false,
+      show: true,
       browser: "chromium",
       windowSize: "1920x1080",
       restart: false,
@@ -26,7 +26,12 @@ exports.config = {
   },
   include: {
     I: "./steps_file.js",
+
+    // Test web page
     webpage: "./pageObjects/stunningWebpage.js",
+
+    // Smartlook
+    onboarding: "./pageObjects/smartlookOnboard.js",
   },
   bootstrap: null,
   mocha: {},
