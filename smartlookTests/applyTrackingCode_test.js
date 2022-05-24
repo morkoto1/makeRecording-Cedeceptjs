@@ -46,8 +46,6 @@ Scenario.skip("Create new account", () => {
   I.click(onboarding.nextBtn);
   I.waitForElement(onboarding.skipInviteBtn, 60);
   I.click(onboarding.skipInviteBtn);
-
-  I.wait(888);
 });
 
 Scenario.skip("Get and apply tracking code", () => {});
