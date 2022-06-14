@@ -15,6 +15,7 @@ Scenario("Create new account and apply tracking code", async () => {
   I.amOnPage(onboarding.SMARKLOOK_ALFA_APP);
 
   // Fill email
+  I.waitForElement("#sign-in-form--email-input--inner");
   I.fillField("#sign-in-form--email-input--inner", TEST_EMAIL);
   // Fill password
   I.fillField("#sign-in-form--password-input--inner", TEST_PASSWORD);
