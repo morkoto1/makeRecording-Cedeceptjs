@@ -1,8 +1,8 @@
-Feature("recording");
+Feature("makeRecording");
 
 const { I, webpage } = inject();
 
-Scenario("test something", () => {
+Scenario("make actions on page stunning-test-website.tech", () => {
   I.amOnPage("/");
   I.waitForText("INTRO");
   I.moveCursorTo(webpage.diamondIcon);

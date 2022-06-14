@@ -69,7 +69,6 @@ Scenario("Create new account and apply tracking code", async () => {
   I.click('a[href="#IPv6"]');
   I.wait(2);
   I.scrollPageToBottom();
-  I.wait(5);
 
   I.closeCurrentTab();
 
@@ -99,6 +98,7 @@ Scenario("Create new account and apply tracking code", async () => {
   I.waitForElement(`[data-cy="${TEST_PROJECT_NAME}_Trial–Admin"]`);
   I.click(`[data-cy="${TEST_PROJECT_NAME}_Trial–Admin"]`);
 
+  I.waitForElement("#settings-projects_remove_action-link");
   I.scrollTo("#settings-projects_remove_action-link");
   I.click("#settings-projects_remove_action-link");
 
