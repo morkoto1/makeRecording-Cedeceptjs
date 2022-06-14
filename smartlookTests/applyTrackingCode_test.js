@@ -2,50 +2,108 @@ Feature("Apply tracking cod");
 
 const { I, onboarding } = inject();
 
-const TEST_EMAIL = "test976563365490@test.cz";
-const TEST_PASSWORD = "test976563365490";
-const TEST_PROJECT_NAME = "helo";
+const TEST_EMAIL = "tomas.morkovsky+886494@smartlook.com"; // tomas.morkovsky+886494@smartlook.com
+const TEST_PASSWORD = "tomas.morkovsky+886494";
+let currentdate = new Date();
+const TEST_PROJECT_NAME =
+  "Project" +
+  currentdate.getDay() +
+  currentdate.getMonth() +
+  currentdate.getFullYear();
 
-Scenario.skip("Create new account", () => {
-  I.amOnPage(onboarding.SMARKLOOK_QA_APP);
-
-  // Create new account
-  I.waitForElement(onboarding.createFreeAccountBtn, 60);
-  I.click(onboarding.createFreeAccountBtn);
+Scenario("Create new account and apply tracking code", async () => {
+  I.amOnPage(onboarding.SMARKLOOK_ALFA_APP);
 
   // Fill email
-  I.fillField(onboarding.emailInputsField, TEST_EMAIL);
+  I.fillField("#sign-in-form--email-input--inner", TEST_EMAIL);
   // Fill password
-  I.fillField(onboarding.passwordInputsField, TEST_PASSWORD);
-  // Accept terms and conditions
-  I.forceClick(onboarding.policyCheckbox);
+  I.fillField("#sign-in-form--password-input--inner", TEST_PASSWORD);
+  // Login
+  I.forceClick("#sign-in-form--submit");
+  // Wait for dashboard
+  I.waitForText("Your quick start guide");
+
+  // Create new project
+  I.click("#app-menu_projects-menu-btn");
+  I.waitForElement("#organizations_main-sidebar_add-btn", 60);
+  I.click("#organizations_main-sidebar_add-btn");
+
+  I.waitForElement("#settings-projects_add-sidebar_website-btn", 60);
+  I.fillField(
+    "#settings-projects_add-sidebar_name-input--inner",
+    TEST_PROJECT_NAME
+  );
+
+  I.waitForElement("#settings-projects_add-sidebar_create-btn", 60);
+  I.click("#settings-projects_add-sidebar_create-btn");
+
+  // wait for project creation
+  I.waitForElement("#settings_menu_back-to-dashboard", 60);
+  I.wait(3);
+  I.forceClick("#settings_menu_back-to-dashboard");
+
+  // Wait for dashboard
+  I.waitForText("Your quick start guide");
+
+  // select correct project
+  I.click("#app-menu_projects-menu-btn");
+  I.waitForText(TEST_PROJECT_NAME);
+  I.click(`div[alt="${TEST_PROJECT_NAME}"]`);
+
+  // grab project code
+  let code = await I.grabTextFrom("#website-code__code");
+  code = code.replace("</script>Copy code", "").replace("<script>", "");
+
+  // Make open wiki page to make recording
+  I.openNewTab();
+  I.amOnPage("https://en.wikipedia.org/wiki/Reserved_IP_addresses");
+
+  I.executeScript(code);
+
+  // Make actions
+  I.wait(2);
+  I.click('a[href="#IPv4"]');
+  I.wait(2);
+  I.scrollPageToTop();
+  I.wait(2);
+  I.click('a[href="#IPv6"]');
+  I.wait(2);
+  I.scrollPageToBottom();
+  I.wait(5);
+
+  I.closeCurrentTab();
+
+  I.refreshPage();
+
+  I.waitForInvisible("#website-code__code");
+
+  I.click("#app-recordings");
+  // wait for recording page
+  I.waitForElement("#app-recordings_main-sidebar_add-edit-filter-segment-btn");
+
+  // open active sessions
+  I.click('[data-cy="Activesessions_list-item"]');
   I.wait(1);
-  // Create / submit
-  I.click(onboarding.createSubmitBtn);
 
-  // Define project
-  I.waitForElement(onboarding.websiteBtn, 60);
-  I.click(onboarding.websiteBtn);
+  // check active recording
+  I.waitForElement(".recording-play-icon");
+  I.waitForText("Now recording");
+  I.waitForElement(".recording-session-info");
 
-  // Fill name
-  I.waitForElement(onboarding.nameInput, 60);
-  I.fillField(onboarding.nameInput, TEST_PROJECT_NAME);
-  I.click(onboarding.whatYouDoBtn);
+  // Remove current project
+  I.click("#app_menu_upgrade");
 
-  // Click next
-  I.click(onboarding.nextBtn);
+  I.waitForElement("#menu-item-settings-projects");
+  I.click("#menu-item-settings-projects");
 
-  // Fill company name
-  I.waitForElement(onboarding.companyNameInput, 60);
-  I.fillField(onboarding.companyNameInput, TEST_PROJECT_NAME);
-  I.click(onboarding.selfEmployedBusinessTypeBtn);
+  I.waitForElement(`[data-cy="${TEST_PROJECT_NAME}_Trial–Admin"]`);
+  I.click(`[data-cy="${TEST_PROJECT_NAME}_Trial–Admin"]`);
 
-  // Click next
-  I.click(onboarding.nextBtn);
-  I.wait(1);
-  I.click(onboarding.nextBtn);
-  I.waitForElement(onboarding.skipInviteBtn, 60);
-  I.click(onboarding.skipInviteBtn);
+  I.scrollTo("#settings-projects_remove_action-link");
+  I.click("#settings-projects_remove_action-link");
+
+  I.waitForElement("#settings-projects_remove-modal_remove-btn");
+  I.click("#settings-projects_remove-modal_remove-btn");
+
+  I.waitForInvisible(`[data-cy="${TEST_PROJECT_NAME}_Trial–Admin"]`);
 });
-
-Scenario.skip("Get and apply tracking code", () => {});

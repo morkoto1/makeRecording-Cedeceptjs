@@ -15,6 +15,7 @@ const SKIP_INVITE_BUTTON = "#invite-team-members_skip-for-now-btn";
 
 module.exports = {
   SMARKLOOK_QA_APP: "https://app.qa.smartlook.cloud/",
+  SMARKLOOK_ALFA_APP: "https://app.alfa.smartlook.cloud/",
 
   createFreeAccountBtn: locate(CREATE_FREE_ACCOUNT),
   createSubmitBtn: locate(SUBMIT_CREATE),
