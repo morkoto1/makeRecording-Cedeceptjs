@@ -1,9 +1,12 @@
 // Pages
 const CREATE_FREE_ACCOUNT = "#sign-in-redirect-to-sign-up--desktop";
 const EMAIL_INPUT = "#sign-up-form--email-input--inner";
+const EMAIL_LOGIN_INPUT = "#sign-in-form--email-input--inner";
 const PASSWORD_INPUT = "#sign-up-form--password-input--inner";
+const PASSWORD_LOGIN_INPUT = "#sign-in-form--password-input--inner";
 const POLICY_CHECKBOX = "#sign-up-form--consent-checkbox";
 const SUBMIT_CREATE = "#sign-up-form--submit";
+const LOGIN_BUTTON = "#sign-in-form--submit";
 
 const WEBSITE_PROJECT = "#init-setup-select-website-project-btn";
 const NAME_INPUT = "#init-setup-user-name--inner";
@@ -20,8 +23,11 @@ module.exports = {
   createFreeAccountBtn: locate(CREATE_FREE_ACCOUNT),
   createSubmitBtn: locate(SUBMIT_CREATE),
   emailInputsField: locate(EMAIL_INPUT),
+  emailLoginInputField: locate(EMAIL_LOGIN_INPUT),
   passwordInputsField: locate(PASSWORD_INPUT),
+  passwordLoginInputsField: locate(PASSWORD_LOGIN_INPUT),
   policyCheckbox: locate(POLICY_CHECKBOX),
+  loginButton: locate(LOGIN_BUTTON),
 
   websiteBtn: locate(WEBSITE_PROJECT),
   nameInput: locate(NAME_INPUT),

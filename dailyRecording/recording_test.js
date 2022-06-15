@@ -1,4 +1,4 @@
-Feature("makeRecording");
+Feature("Make Recording");
 
 const { I, webpage } = inject();
 

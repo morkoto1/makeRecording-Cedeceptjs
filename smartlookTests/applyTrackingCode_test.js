@@ -1,6 +1,15 @@
-Feature("Apply tracking cod");
+Feature("Apply tracking code");
 
-const { I, onboarding } = inject();
+const {
+  I,
+  onboarding,
+  sidebarMenu,
+  projectsDropdown,
+  addProjectSidebar,
+  settings,
+  dashboardPage,
+  recordingsPage,
+} = inject();
 
 const TEST_EMAIL = "tomas.morkovsky+886494@smartlook.com"; // tomas.morkovsky+886494@smartlook.com
 const TEST_PASSWORD = "tomas.morkovsky+886494";
@@ -10,58 +19,59 @@ const TEST_PROJECT_NAME =
   currentdate.getDay() +
   currentdate.getMonth() +
   currentdate.getFullYear();
+const WIKI_PAGE = "https://en.wikipedia.org/wiki/Reserved_IP_addresses";
+const YOUR_QUICK_START_GUIDE_TEXT = "Your quick start guide";
 
 Scenario("Create new account and apply tracking code", async () => {
   I.amOnPage(onboarding.SMARKLOOK_ALFA_APP);
 
   // Fill email
-  I.waitForElement("#sign-in-form--email-input--inner");
-  I.fillField("#sign-in-form--email-input--inner", TEST_EMAIL);
+  I.waitForElement(onboarding.emailLoginInputField);
+  I.fillField(onboarding.emailLoginInputField, TEST_EMAIL);
   // Fill password
-  I.fillField("#sign-in-form--password-input--inner", TEST_PASSWORD);
+  I.fillField(onboarding.passwordLoginInputsField, TEST_PASSWORD);
   // Login
-  I.forceClick("#sign-in-form--submit");
+  I.forceClick(onboarding.loginButton);
   // Wait for dashboard
-  I.waitForText("Your quick start guide");
+  I.waitForText(YOUR_QUICK_START_GUIDE_TEXT);
 
   // Create new project
-  I.click("#app-menu_projects-menu-btn");
-  I.waitForElement("#organizations_main-sidebar_add-btn", 60);
-  I.click("#organizations_main-sidebar_add-btn");
+  I.click(sidebarMenu.projectsDropdown);
+  I.waitForElement(projectsDropdown.addProjectBtn, 60);
+  I.click(projectsDropdown.addProjectBtn);
 
-  I.waitForElement("#settings-projects_add-sidebar_website-btn", 60);
-  I.fillField(
-    "#settings-projects_add-sidebar_name-input--inner",
-    TEST_PROJECT_NAME
-  );
+  I.waitForElement(addProjectSidebar.addWebProjectBtn, 60);
+  I.fillField(addProjectSidebar.webProjectInput, TEST_PROJECT_NAME);
 
-  I.waitForElement("#settings-projects_add-sidebar_create-btn", 60);
-  I.click("#settings-projects_add-sidebar_create-btn");
+  I.waitForElement(addProjectSidebar.createProjectBtn, 60);
+  I.click(addProjectSidebar.createProjectBtn);
 
-  // wait for project creation
-  I.waitForElement("#settings_menu_back-to-dashboard", 60);
+  // Wait for project creation
+  I.waitForElement(settings.backToDashboardBtn, 60);
   I.wait(3);
-  I.forceClick("#settings_menu_back-to-dashboard");
+  I.click(settings.backToDashboardBtn);
 
   // Wait for dashboard
-  I.waitForText("Your quick start guide");
+  I.waitForText(YOUR_QUICK_START_GUIDE_TEXT);
 
-  // select correct project
-  I.click("#app-menu_projects-menu-btn");
+  // Select correct project
+  I.click(sidebarMenu.projectsDropdown);
   I.waitForText(TEST_PROJECT_NAME);
   I.click(`div[alt="${TEST_PROJECT_NAME}"]`);
 
-  // grab project code
-  let code = await I.grabTextFrom("#website-code__code");
+  // Grab project code
+  I.waitForElement(dashboardPage.trackingCode);
+  let code = await I.grabTextFrom(dashboardPage.trackingCode);
+  // remove <script> tags
   code = code.replace("</script>Copy code", "").replace("<script>", "");
 
   // Make open wiki page to make recording
   I.openNewTab();
-  I.amOnPage("https://en.wikipedia.org/wiki/Reserved_IP_addresses");
+  I.amOnPage(WIKI_PAGE);
 
   I.executeScript(code);
 
-  // Make actions
+  // Make actions on wiki page to create recording
   I.wait(2);
   I.click('a[href="#IPv4"]');
   I.wait(2);
@@ -70,41 +80,45 @@ Scenario("Create new account and apply tracking code", async () => {
   I.click('a[href="#IPv6"]');
   I.wait(2);
   I.scrollPageToBottom();
-
+  // close wiki page
   I.closeCurrentTab();
 
+  // Refresh smartlook dashboard and check that tracking code disappears
   I.refreshPage();
+  I.waitForInvisible(dashboardPage.trackingCode);
 
-  I.waitForInvisible("#website-code__code");
+  // Switch to recording page
+  I.click(sidebarMenu.recordingsPage);
+  // Wait for recording page
+  I.waitForElement(recordingsPage.addFilterBtn);
 
-  I.click("#app-recordings");
-  // wait for recording page
-  I.waitForElement("#app-recordings_main-sidebar_add-edit-filter-segment-btn");
-
-  // open active sessions
+  // Open active sessions
   I.click('[data-cy="Activesessions_list-item"]');
   I.wait(1);
 
-  // check active recording
-  I.waitForElement(".recording-play-icon");
+  // Check active recording
+  I.waitForElement(recordingsPage.playIcon);
   I.waitForText("Now recording");
-  I.waitForElement(".recording-session-info");
+  I.waitForElement(recordingsPage.recordingInfoPanel);
+
+  // Navigate to project page
+  I.click(sidebarMenu.upgradeButton);
+  I.waitForElement(settings.projectsSidebarBtn);
+  I.click(settings.projectsSidebarBtn);
+
+  // Select current project
+  I.waitForElement(`[data-cy="${TEST_PROJECT_NAME}_Custom–Admin"]`);
+  I.click(`[data-cy="${TEST_PROJECT_NAME}_Custom–Admin"]`);
 
   // Remove current project
-  I.click("#app_menu_upgrade");
+  I.waitForElement(settings.removeLinkBtn);
+  I.scrollTo(settings.removeLinkBtn);
+  I.click(settings.removeLinkBtn);
 
-  I.waitForElement("#menu-item-settings-projects");
-  I.click("#menu-item-settings-projects");
+  // confirm removal
+  I.waitForElement(settings.removeConfirmBtn);
+  I.click(settings.removeConfirmBtn);
 
-  I.waitForElement(`[data-cy="${TEST_PROJECT_NAME}_Trial–Admin"]`);
-  I.click(`[data-cy="${TEST_PROJECT_NAME}_Trial–Admin"]`);
-
-  I.waitForElement("#settings-projects_remove_action-link");
-  I.scrollTo("#settings-projects_remove_action-link");
-  I.click("#settings-projects_remove_action-link");
-
-  I.waitForElement("#settings-projects_remove-modal_remove-btn");
-  I.click("#settings-projects_remove-modal_remove-btn");
-
-  I.waitForInvisible(`[data-cy="${TEST_PROJECT_NAME}_Trial–Admin"]`);
+  // wait for project removel
+  I.waitForInvisible(`[data-cy="${TEST_PROJECT_NAME}_Custom–Admin"]`);
 });

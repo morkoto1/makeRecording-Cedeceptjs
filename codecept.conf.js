@@ -30,8 +30,16 @@ exports.config = {
     // Test web page
     webpage: "./pageObjects/stunningWebpage.js",
 
-    // Smartlook
+    // Smartlook page objects
     onboarding: "./pageObjects/smartlookOnboard.js",
+    sidebarMenu: "./pageObjects/sidebarMenu.js",
+    settings: "./pageObjects/settings.js",
+    dashboardPage: "./pageObjects/dashboardPage.js",
+    recordingsPage: "./pageObjects/recordingsPage.js",
+
+    // Smartlook page fragments
+    projectsDropdown: "./fragments/projectsDropdown.js",
+    addProjectSidebar: "./fragments/addProjectSidebar.js",
   },
   bootstrap: null,
   mocha: {},
