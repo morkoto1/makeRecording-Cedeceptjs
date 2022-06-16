@@ -25,7 +25,6 @@ jobs:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-        env:
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_MESSAGE: 'Job failed :rocket:'
           SLACK_TITLE: Job failed
