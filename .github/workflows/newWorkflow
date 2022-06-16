@@ -24,3 +24,13 @@ jobs:
         run: |
           npm ci
           npm run test
+
+      - name: Slack Notification
+      - uses: rtCamp/action-slack-notify@v2
+        env:
+         SLACK_CHANNEL: general
+         SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+         SLACK_MESSAGE: 'Post Content :rocket:'
+         SLACK_TITLE: Report
+         SLACK_USERNAME: dailyReport
+         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
