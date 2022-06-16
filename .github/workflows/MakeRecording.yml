@@ -22,8 +22,8 @@ jobs:
           npm ci
           npm run test
 
-      - uses: rtCamp/action-slack-notify@v2
       - name: Slack Notification
+      - uses: rtCamp/action-slack-notify@v2
         env:
          SLACK_CHANNEL: general
          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
