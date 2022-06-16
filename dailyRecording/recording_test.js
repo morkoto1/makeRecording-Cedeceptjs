@@ -4,7 +4,7 @@ const { I, webpage } = inject();
 
 Scenario("make actions on page stunning-test-website.tech", () => {
   I.amOnPage("/");
-  I.waitForText("INTROUUUUU");
+  I.waitForText("INTRO");
   I.moveCursorTo(webpage.diamondIcon);
 
   // open popup (custom event)
