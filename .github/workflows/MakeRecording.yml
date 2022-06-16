@@ -23,7 +23,6 @@ jobs:
           npm run test  
   
   slackNotification:
-    slackNotification:
     name: Slack Notification
     runs-on: ubuntu-latest
     steps:
