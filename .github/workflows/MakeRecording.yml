@@ -27,6 +27,8 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_COLOR: ${{ job.status }}
+          SLACK_USERNAME: 'Make WEB recording'	
+          SLACK_ICON: 'https://yt3.ggpht.com/ytc/AKedOLQ0tX6vAB1iFXQklbjDti54StZp7Qkl3frYPEV1=s900-c-k-c0x00ffffff-no-rj'
           SLACK_MESSAGE: 'Job failed :rocket:'
           SLACK_TITLE: Make WEB recording 
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
