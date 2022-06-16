@@ -23,6 +23,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "engine.io-client": "^6.2.2"
+    "engine.io-client": "^6.2.2",
+    "electron": ">=13.6.6"
   }
 }
