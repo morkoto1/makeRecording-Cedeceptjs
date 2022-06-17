@@ -34,13 +34,13 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       
       - name: Send GitHub Action trigger data to Slack workflow
+        if: success()
         id: slack
         uses: slackapi/slack-github-action@v1.19.0
         with:
           payload: |
             {
-              "text": "Automated job to make a recording has failed https://github.com/morkoto1/makeRecording/actions"
+              "text": "Automated job to make a recording has failed :pepe_fire: :pepe_fire: :pepe_fire: https://github.com/morkoto1/makeRecording/actions"
             }
         env:
-          SLACK_COLOR: ${{ job.status }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}    
