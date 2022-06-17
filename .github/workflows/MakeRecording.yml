@@ -22,25 +22,14 @@ jobs:
           npm ci
           npm run test  
       
-      - name: Slack Notification
-        if: failure()
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_COLOR: ${{ job.status }}
-          SLACK_USERNAME: 'Make WEB recording'	
-          SLACK_ICON: 'https://yt3.ggpht.com/ytc/AKedOLQ0tX6vAB1iFXQklbjDti54StZp7Qkl3frYPEV1=s900-c-k-c0x00ffffff-no-rj'
-          SLACK_MESSAGE: 'Job failed :rocket:'
-          SLACK_TITLE: Make WEB recording 
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      
       - name: Send GitHub Action trigger data to Slack workflow
-        if: success()
+        if: failure()
         id: slack
         uses: slackapi/slack-github-action@v1.19.0
         with:
           payload: |
             {
-              "text": "Automated job to make a recording has failed :pepe_fire: :pepe_fire: :pepe_fire: \n Link: https://github.com/morkoto1/makeRecording/actions"
+              "text": "Automated job to make a recording has failed :pepe_fire: :pepe_fire: :pepe_fire: \n\n Link: https://github.com/morkoto1/makeRecording/actions"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}    

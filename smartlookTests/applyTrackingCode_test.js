@@ -22,7 +22,7 @@ const TEST_PROJECT_NAME =
 const WIKI_PAGE = "https://en.wikipedia.org/wiki/Reserved_IP_addresses";
 const YOUR_QUICK_START_GUIDE_TEXT = "Your quick start guide";
 
-Scenario.skip("Create new account and apply tracking code", async () => {
+Scenario("Create new account and apply tracking code", async () => {
   I.amOnPage(onboarding.SMARKLOOK_ALFA_APP);
 
   // Fill email
