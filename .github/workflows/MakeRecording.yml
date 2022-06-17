@@ -39,7 +39,7 @@ jobs:
         with:
           payload: |
             {
-              'text': 'Daily tests have failed'
+              "text": "Daily tests have failed"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}    

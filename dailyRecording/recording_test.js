@@ -2,7 +2,7 @@ Feature("Make Recording");
 
 const { I, webpage } = inject();
 
-Scenario("make actions on page stunning-test-website.tech", () => {
+Scenario.skip("make actions on page stunning-test-website.tech", () => {
   I.amOnPage("/");
   I.waitForText("INTRO");
   I.moveCursorTo(webpage.diamondIcon);
