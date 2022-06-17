@@ -32,3 +32,9 @@ jobs:
           SLACK_MESSAGE: 'Job failed :rocket:'
           SLACK_TITLE: Make WEB recording 
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.19.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}    
