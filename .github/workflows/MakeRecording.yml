@@ -40,7 +40,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "Automated job to make a recording has failed :pepe_fire: :pepe_fire: :pepe_fire: https://github.com/morkoto1/makeRecording/actions"
+              "text": "Automated job to make a recording has failed :pepe_fire: :pepe_fire: :pepe_fire: \n Link: https://github.com/morkoto1/makeRecording/actions"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}    
