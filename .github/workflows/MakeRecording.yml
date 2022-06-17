@@ -39,8 +39,7 @@ jobs:
         with:
           payload: |
             {
-              "key": "value",
-              "foo": "bar"
+              'sender.type': 'User'
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}    
