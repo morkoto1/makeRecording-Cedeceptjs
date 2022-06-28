@@ -20,6 +20,8 @@ exports.config = {
       keepBrowserState: true,
       keepCookies: true,
       waitForNavigation: "networkidle",
+      timeout: 60000,
+      waitForTimeout: 60000,
       waitForTimeout: 60000,
       waitForAction: 500, // Delay (ms) after click
     },
