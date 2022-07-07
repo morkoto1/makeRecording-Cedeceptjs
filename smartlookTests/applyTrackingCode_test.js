@@ -46,6 +46,10 @@ Scenario("Create new account and apply tracking code", async () => {
   I.waitForElement(addProjectSidebar.createProjectBtn, 60);
   I.click(addProjectSidebar.createProjectBtn);
 
+  // WORKAROUND
+  I.wait(3);
+  I.click("#action-sidebar-close");
+
   // Wait for project creation
   I.waitForElement(settings.backToDashboardBtn, 60);
   I.wait(3);
