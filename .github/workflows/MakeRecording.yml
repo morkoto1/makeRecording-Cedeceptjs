@@ -16,6 +16,9 @@ jobs:
         with:
           node-version: 16
 
+      - uses: browser-actions/setup-chrome@latest
+      - run: chrome --version
+
       - uses: microsoft/playwright-github-action@v1
       - name: run CodeceptJS tests
         run: |
