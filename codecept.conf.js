@@ -13,7 +13,7 @@ exports.config = {
   helpers: {
     Playwright: {
       url: "http://stunning-test-website.tech",
-      show: false,
+      show: true,
       browser: "chromium",
       windowSize: "1920x1080",
       restart: false,
