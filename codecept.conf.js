@@ -14,7 +14,7 @@ exports.config = {
     Playwright: {
       url: "http://stunning-test-website.tech",
       show: true,
-      browser: "chromium",
+      browser: "webkit",
       windowSize: "1920x1080",
       restart: false,
       keepBrowserState: true,
