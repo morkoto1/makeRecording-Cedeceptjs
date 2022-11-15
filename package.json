@@ -15,19 +15,19 @@
     "@codeceptjs/configure": "^0.8.0",
     "@codeceptjs/examples": "^1.2.1",
     "@codeceptjs/ui": "^0.4.6",
-    "codeceptjs": "^3.3.0",
-    "playwright": "^1.20.2",
+    "codeceptjs": "^3.3.6",
+    "playwright": "^1.27.1",
     "puppeteer": "^13.5.2",
     "got": ">=11.8.5",
     "jpeg-js": ">=0.4.4",
-    "electron": ">=15.5.5"
+    "electron": ">=19.0.11"
   },
   "engines": {
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "engine.io-client": "^6.2.2",
-    "electron": ">=15.5.5",
+    "engine.io-client": ">=3.6.0",
+    "electron": ">=19.0.11",
     "got": ">=11.8.5",
     "jpeg-js": ">=0.4.4"
   }
